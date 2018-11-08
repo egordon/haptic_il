@@ -1,0 +1,35 @@
+debug: no
+bias:
+  samples: 50
+  torque: yes
+  force: yes
+pretruncate:
+  savgol_window: 21
+  savgol_order: 2
+  deriv_thresh: 0.03
+  buffer: 30
+transform:
+  fork_front:
+    - -0.007792
+    - -0.274703
+    - -0.009899
+  grip: 0.0
+  samples: 50
+posttruncate:
+  y_thresh: 0.07
+  buffer: 5
+npz:
+  obs_cols:
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+  acs_cols:
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
