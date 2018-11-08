@@ -114,6 +114,6 @@ dmypy.json
 .pyre/
 
 # Data Folders
-/dataverse
-/raw
-/preprocessed
+data/dataverse
+data/raw
+data/preprocessed
