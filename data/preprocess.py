@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
     newrows = np.max([i.shape[0] for i in acs])
     for i in range(len(acs)):
-        acs[i] = np.pad(acs[i], ((0, newrows-acs[i].shape[0]),(0,0)), 'edge')
+        acs[i] = np.pad(acs[i], ((0, newrows-acs[i].shape[0]),(0,0)), 'constant', constant_values=(0, 0))
 
     # Concat into 3D array and save
     obs = np.dstack(obs)
