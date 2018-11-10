@@ -21,7 +21,7 @@ class Rollout(gym.Env):
         self.action = np.zeros(6)
 
         # save t (from Hanjun)
-        self.t = np.array([-7.792, -274.703, -9.899])
+        self.t = np.array([-7.792, -274.703, -9.899])/1000
 
         # initialize ros node
         rospy.init_node('rollout')
