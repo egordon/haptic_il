@@ -10,6 +10,9 @@ import numpy as np
 import math
 from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point
+import geometry_msgs
+import tf2_ros
+import tf2_msgs.msg
 
 
 class FoodEnv(gym.Env):
@@ -52,6 +55,7 @@ class FoodEnv(gym.Env):
 
         # initialize publisher
         self.pub = rospy.Publisher('forque_pose', Marker, queue_size=10)
+        self.pub_tf = rospy.Publisher("/tf", tf2_msgs.msg.TFMessage, queue_size=1)
 
         # initialize rate
         self.rate = rospy.Rate(self.hz)
@@ -89,10 +93,28 @@ class FoodEnv(gym.Env):
         self.marker.points[1] = Point(pose[0], pose[1], pose[2])
         self.pub.publish(self.marker)
 
+    def publish_tf(self):
+        t = geometry_msgs.msg.TransformStamped()
+        t.header.frame_id = "map"
+        t.header.stamp = rospy.Time.now()
+        t.child_frame_id = "world"
+        t.transform.translation.x = 0.0
+        t.transform.translation.y = 0.0
+        t.transform.translation.z = 0.0
+
+        t.transform.rotation.x = 0.7071063
+        t.transform.rotation.y = 0.0
+        t.transform.rotation.z = 0.0
+        t.transform.rotation.w = 0.7071073
+
+        tfm = tf2_msgs.msg.TFMessage([t])
+        self.pub_tf.publish(tfm) 
+
 
     def callback(self, event):
         self.state += (self.action / self.hz)
         self.publish_marker()
+        self.publish_tf()
         if self.state[1] > 0.07: # when forque is more than 7 cm over food
             self.done = True
 

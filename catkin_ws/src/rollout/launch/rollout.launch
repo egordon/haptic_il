@@ -1,5 +1,0 @@
-<launch>
-  <node pkg="rollout" name="map_frame" type="frames.py"/>
-
-  <node pkg="rollout" name="rollout" type="rollout.py" />
-</launch>
